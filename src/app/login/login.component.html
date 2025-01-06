@@ -1,0 +1,177 @@
+<!-- import {} -->
+<section
+  class="col-lg-12 col-md-12 col-sm-12"
+  style="margin-top: 200px !important"
+>
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="back-container" routerLink="/home" style="cursor: pointer">
+        <span class="back d-flex align-items-center">
+          <div class="back-icon">
+            <div
+              class="circle d-flex align-items-center justify-content-center"
+            ></div>
+          </div>
+          <div class="back-word mx-3">Back</div>
+        </span>
+      </div>
+
+      <!-- <div class="login-container w-75 h-75" style="float: left;"> -->
+      <div class="main-title-container mx-3" style="margin-bottom: -50px">
+        <p class="main-title create-title">Welcome Back</p>
+        <p class="main-subtitle">Login in to your account</p>
+      </div>
+
+      <div id="wrap" style="margin-left: -1px">
+        <div class="left-shape"></div>
+      </div>
+      <!-- </div> -->
+    </div>
+
+    <div class="col-lg-5 mt-5">
+      <!-- <h1 class="my-3">Sign in</h1> -->
+
+      <div class="login-container w-75 h-75 mt-5" style="float: left">
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="handleForm()"
+          class="mt-5 mb-5"
+        >
+          <!-- ? Phone Number -->
+          <div class="form-item">
+            <label for="phoneNumber" class="login-title">Mobile Number</label>
+            <!-- <span style="color: red; padding-left: 5px">*</span> -->
+
+            <input
+              formControlName="phoneNumber"
+              id="phoneNumber"
+              name="phoneNumber"
+              type="text"
+              class="input-field mt-2 w-100"
+              placeholder="Enter Your Mobile Number"
+              style="display: block"
+              min="10"
+              max="13"
+            />
+
+            <div
+              class="mt-3"
+              *ngIf="
+                loginForm.get('phoneNumber')?.touched &&
+                loginForm.get('phoneNumber')?.errors
+              "
+            >
+              <!-- ? is the null safety to avoid returning null, if it returns null it doesn't complete till the end of the line -->
+              <p
+                class="text-danger"
+                *ngIf="loginForm.get('phoneNumber')?.getError('required')"
+              >
+                Mobile Number is required *
+              </p>
+              <!-- <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('minlength')">Incorrect Mobile Number</p> -->
+              <!-- <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('maxlength')">Phone Number can't be more than 13 Characters</p> -->
+              <!-- <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('pattern')">Incorrect format, <br/> Phone number accepts only Egyptian phone numbers *</p> -->
+              <p
+                class="text-danger"
+                *ngIf="loginForm.get('phoneNumber')?.getError('pattern')"
+              >
+                Phone number accepts only Egyptian phone numbers *
+              </p>
+
+              <!-- error returns object, object makes ngIf true so p appears -->
+              <!-- no error returns null, null makes ngIf false so p doesn't appear -->
+            </div>
+
+            <!-- <div class="text-danger mt-3" *ngIf="loginForm.get('phoneNumber')?.errors">
+          <p class="text-danger"  *ngIf="loginForm.get('phoneNumber')?.getError('required')">Mobile Number is required *</p>
+
+        </div> -->
+
+            <!-- <div class=" mt-3" *ngIf=" loginForm.get('phoneNumber')?.untouched">
+          <p class="text-danger"  *ngIf="loginForm.get('phoneNumber')?.getError('required')">Mobile Number is required *</p>
+           <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('minlength')">Incorrect Mobile Number</p> 
+          <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('maxlength')">Phone Number can't be more than 13 Characters</p> 
+          <p class="text-danger" *ngIf="loginForm.get('phoneNumber')?.getError('pattern')">Incorrect format, <br/> Phone number accepts only Egyptian phone numbers *</p> 
+
+    
+ error returns object, object makes ngIf true so p appears 
+ no error returns null, null makes ngIf false so p doesn't appear
+      </div> -->
+          </div>
+
+          <div class="mt-5 d-flex align-items-center justify-content-center">
+            <!-- type="submit" allows me to submit via enter,tab,space, and click too -->
+            <button
+              (click)="handleForm()"
+              id="sign-in-button"
+              type="submit"
+              class="btn auth-btn"
+            >
+              Login
+
+              <span *ngIf="isLoading"
+                ><i class="fa-solid fa-spinner fa-spin"></i
+              ></span>
+            </button>
+          </div>
+
+          <div class="txt mt-4">
+            <!-- true: close btn, false: open btn -->
+            <div class="">
+              <!-- ? Have account? => login -->
+
+              <div class="d-flex justify-content-center align-items-center">
+                <span
+                  class="text-black-50"
+                  style="
+                    font-family: Lato;
+                    font-size: 24.82px;
+                    font-weight: 400;
+                    line-height: 29.78px;
+                    letter-spacing: -0.02em;
+                    text-align: left;
+                    text-underline-position: from-font;
+                    text-decoration-skip-ink: none;
+                  "
+                >
+                  First Time Here?
+                  <span routerLink="/register" class="authSpanLink">
+                    Signup</span
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="or-section mt-5">
+            <div class="line1"></div>
+            <div class="or-word">Or</div>
+            <div class="line1"></div>
+          </div>
+
+          <div class="google d-flex align-items-center justify-content-center">
+            <button
+              (click)="signInWithGoogle()"
+              class="btn google-btn mt-5 d-flex align-items-center justify-content-center"
+            >
+              Login with Google
+            </button>
+          </div>
+
+          <div
+            class="facebook d-flex align-items-center justify-content-center"
+          >
+            <button
+              (click)="signInWithFacebook()"
+              class="btn facebook-btn mt-4 d-flex align-items-center justify-content-center"
+            >
+              Login with Facebook
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- <p *ngIf="errMsg" class="alert alert-danger p-1 w-50 mx-auto mb-0 text-center">{{errMsg}}</p> -->
+    </div>
+  </div>
+</section>
