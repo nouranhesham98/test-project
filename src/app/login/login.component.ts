@@ -10,39 +10,43 @@ import { AuthService } from "../services/auth.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.css'],
   standalone:false
   
 })
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
+
+  // 
   phoneNumber: any;
   reCaptchaVerifier!: any;
+  // 
+
   errorr:string = '';
+  
   errMsg: string = '';
   isLoading: boolean = false;
-  loginForm!: FormGroup; // Important: Make sure this is defined
+ 
 
 
+  constructor(private auth: AuthService,private router: Router) {}
 
-  constructor(private auth: AuthService,private router: Router,
-    private fb: FormBuilder
-  ) {}
+  ngOnInit(): void {}
+  
+  // loginForm: FormGroup = new FormGroup({
+  //   email: new FormControl('', [Validators.required, Validators.email]),
+  //   password: new FormControl('', [
+  //     Validators.required,
+  //     Validators.pattern(/^\w{6,}$/),
+  //   ]),
+  // });
 
-  ngOnInit(): void { 
-  this.loginForm = this.fb.group({ // Initialize in ngOnInit
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    phoneNumber: new FormControl( '', [Validators.required , Validators.pattern(/^01[0125][0-9]{8}$/)] ),
-  });
-  }
-  // loginForm:FormGroup 
-  // = new FormGroup({
+  loginForm:FormGroup = new FormGroup({
     
-  //   phoneNumber: new FormControl( '', [Validators.required , Validators.pattern(/^01[0125][0-9]{8}$/)] ),
+    phoneNumber: new FormControl( '', [Validators.required , Validators.pattern(/^01[0125][0-9]{8}$/)] ),
 
-  // }   );
+  }   );
 
 
   handleForm():void {

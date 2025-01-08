@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-    { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }, // Added by the CLI
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }, // Added by the CLI
+    { path: 'home', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'home',loadChildren: () => import('./home/dashboard/dashboard.module').then(m => m.DashboardModule)},
+
   ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

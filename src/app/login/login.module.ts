@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-const routes: Routes = [
-  { path: '', component: LoginComponent },
-];
-
+// const routes: Routes = [
+//   { path: 'logi', component: LoginComponent },
+// ];
 
 @NgModule({
   declarations: [
@@ -17,7 +15,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     LoginRoutingModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
     ReactiveFormsModule,
   ]
 })
